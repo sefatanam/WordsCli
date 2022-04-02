@@ -7,7 +7,7 @@ namespace WordsCli;
 
 public class Core
 {
-    public async Task<Query?> Search(string word)
+    public async Task<Query[]> Search(string word)
     {
         try
         {
@@ -20,13 +20,16 @@ public class Core
 
             var response = await httpClient.GetAsync(word);
 
+            WriteLine("Here the response");
+
             if (response.StatusCode == HttpStatusCode.NotFound)
             {
                 return null;
             }
 
             var convertResponseToModel = await response.Content.ReadFromJsonAsync<Query[]>();
-            return convertResponseToModel?.FirstOrDefault();
+            WriteLine(convertResponseToModel[1].Meanings[0].Synonyms.Count);
+            return convertResponseToModel;
         }
         catch (Exception e)
         {
@@ -36,15 +39,15 @@ public class Core
     }
 
 
-    public static void Print(Query? query)
+    public void Print(Query[] query)
     {
-        Clear();
+        // Clear();
         // var introTable = new ConsoleTable(nameof(query.Word), nameof(query.Origin));
         // introTable.AddRow(query?.Word, query?.Origin);
         // introTable.Write();
-        WriteLine($"Synonyms of '{query?.Word}' are bellow : \n");
+        // WriteLine($"Synonyms of '{query?.Word}' are bellow : \n");
         var synonymsTable = new ConsoleTable("COLUMN 1", " COLUMN 2", "COLUMN 3");
-        var enumerable = query?.Meanings?.First()?.Definitions?.First()?.Synonyms;
+        var enumerable = query[0].Meanings?[0].Synonyms;
 
 
         for (var i = 0; i < enumerable?.Count; i += 3)

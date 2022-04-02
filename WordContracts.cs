@@ -13,6 +13,7 @@ public class Meaning
 {
     [JsonPropertyName("partOfSpeech")] public string? PartOfSpeech { get; set; }
     [JsonPropertyName("definitions")] public List<Definition>? Definitions { get; set; }
+    [JsonPropertyName("synonyms")] public List<string>? Synonyms { get; set; }
 }
 
 public class Definition
