@@ -15,4 +15,4 @@ if (query is null)
 var engine = new Core();
 var result = await engine.Search(query);
 
-engine.Print(result);
+Core.Print(result);

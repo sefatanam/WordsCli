@@ -36,7 +36,7 @@ public class Core
     }
 
 
-    public void Print(Query? query)
+    public static void Print(Query? query)
     {
         Clear();
         // var introTable = new ConsoleTable(nameof(query.Word), nameof(query.Origin));
